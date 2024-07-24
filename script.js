@@ -7,6 +7,37 @@ const choiceThree = document.getElementById('scissors');
 let humanScore = 0;
 let computerScore = 0;
 
+//---------------------------------------------------------------------------------
+// Display Human and Computer score
+const content = document.querySelector('.content');
+const displayScore = document.createElement('div');
+const displayHumanScore = document.createElement('p');
+const displayComputerScore = document.createElement('p');
+
+displayScore.append(displayHumanScore);
+displayScore.append(displayComputerScore);
+content.append(displayScore);
+
+displayScore.style.width = '33%';
+displayScore.style.display = 'flex';
+displayScore.style.justifyContent = 'space-between';
+displayScore.style.marginTop = '2rem';
+displayScore.style.border = '2px solid white';
+displayScore.style.padding = '2rem';
+
+displayHumanScore.innerText = `Human Score: ${humanScore}`;
+displayComputerScore.innerText = `Computer Score: ${computerScore}`;
+//---------------------------------------------------------------------------------
+// Display winner
+const displayWinner = document.createElement('div')
+
+content.append(displayWinner);
+
+displayWinner.innerText = '';
+
+displayWinner.style.marginTop = '1.3rem';
+//---------------------------------------------------------------------------------
+
 function getComputerChoice() {
     let choices = ['rock', 'paper', 'scissors'];
     return choices[Math.floor(Math.random()*choices.length)];
@@ -38,18 +69,26 @@ function getHumanChoice(humanChoice) {
         computerScore++;
     }
 
+    displayHumanScore.innerText = `Human Score: ${humanScore}`;
+    displayComputerScore.innerText = `Computer Score: ${computerScore}`;
+
     if (humanScore === 5 || computerScore === 5) {
         if(humanScore === 5) {
-            alert('Congratulations You Win this Game');
+            displayWinner.innerText = 'Congratulations! You Win This Game.';
             humanScore = 0;
             computerScore = 0;
         } else {
-            alert('Computer Wins! Try again');
+            displayWinner.innerText = 'Computer Wins This Game! Try again.';
             computerScore = 0;
             humanScore = 0;
         }
     }
 }
+
+displayHumanScore.setAttribute('id', 'info-txt');
+displayComputerScore.setAttribute('id', 'info-txt');
+
+displayWinner.setAttribute('id', 'main-txt');
 
 choiceOne.addEventListener('click', () => {
     getHumanChoice('rock');
